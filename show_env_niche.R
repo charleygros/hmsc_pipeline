@@ -1,5 +1,6 @@
 ###
 # Correlation in the beta coefficients between species.
+# i.e. correlations between species due to the environmental response
 # Shows species with similar/dissimilar environmental niches
 ###
 
@@ -23,16 +24,10 @@ env_niches <- function (hM, start = 1, thin = 1, prob = 0.95) {
   BetaCor2 <- lapply(BetaCor, function(a) return(a > 0))
   support1 <- apply(abind::abind(BetaCor2, along = 3), c(1, 2), mean)
   # Count the proportion of times the cor/cov is above or below 0
-  sig_hmsc <- (support1 > prob | support1 < (1-prob))*mBetaCor
+  signi <- (support1 > prob | support1 < (1-prob))*mBetaCor
   
-  ## calculate support/significance- boral way
-  #cor_int <- apply(abind::abind(BetaCor, along = 3), c(1, 2), function(a) HPDinterval(as.mcmc(a), prob = prob))
-  #cor_int <- aperm(cor_int, c(2, 3, 1))
-  ## for boral, the number of times that the interval does not include 0
-  #sig_boral <- (apply(cor_int, c(1, 2), function(z) (z[1] < 0 & z[2] < 0) | (z[1] > 0 & z[2] > 0)))*mBetaCor
+  colnames(mBetaCor) <- colnames(signi)  <- hM$spNames
+  rownames(mBetaCor) <- rownames(signi) <- hM$spNames
   
-  colnames(mBetaCor) <- colnames(sig_hmsc)  <- hM$spNames ## <-colnames(mBetaCov) <-colnames(sig_boral) <- hM$spNames
-  rownames(mBetaCor) <- rownames(sig_hmsc) <- hM$spNames ## <-rownames(mBetaCov) <-rownames(sig_boral) <- hM$spNames
-  
-  list(cor = mBetaCor, signifiance = sig_hmsc)  #cov = mBetaCov, sig_boral=sig_boral)
+  list(cor = mBetaCor, signifiance = signi)
 }
