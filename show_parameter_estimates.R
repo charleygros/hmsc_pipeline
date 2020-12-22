@@ -56,7 +56,8 @@ show_parameter_estimates <- function(modelDir, samples, thin, nChains, panelsDir
         
         VPr$vals = VPr$vals[,order(-R2)]
         plotVariancePartitioning(hM=m, VP=VPr,cols = mycols, args.leg=list(bg="white",cex=0.7),ylim=c(0,1),
-                                 main=paste0("Proportion of raw variance, ",modelnames[[j]]),cex.main=0.8)
+                                 main=paste0("Proportion of raw variance, ",modelnames[[j]]),cex.main=0.8,
+                                 cex.names=0.5)
       }
       
     }

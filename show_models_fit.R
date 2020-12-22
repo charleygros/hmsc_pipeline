@@ -48,6 +48,8 @@ show_models_fit <- function(modelDir, samples_list, thin_list, nChains, panelsDi
           abline(h=0)
         }
         if(!is.null(cMF$AUC)){
+          print(mean(cMF$AUC))
+          print(mean(cMFCV$AUC))
           plot(cMF$AUC,cMFCV$AUC,xlim=c(0,1),ylim=c(0,1),
                xlab = "explanatory power",
                ylab = "predictive power",
