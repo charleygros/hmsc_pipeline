@@ -25,6 +25,8 @@ define_hurdle_model <- function(S, X, Y, XFormula, ModelDir) {
             distr="probit",
             studyDesign=studyDesign,
             ranLevels={list("cell" = rL.cell)})
+  print(head(m1$X))
+  
   # Log-normal abundance data conditional on presence
   Yabu = Y
   Yabu[Yabu==0] = NA
@@ -35,6 +37,7 @@ define_hurdle_model <- function(S, X, Y, XFormula, ModelDir) {
             distr="normal",
             studyDesign=studyDesign,
             ranLevels={list("cell" = rL.cell)})
+  print(head(m2$X))
   
   # Hurdle model
   models = list(m1,m2)
