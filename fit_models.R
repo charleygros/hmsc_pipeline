@@ -18,10 +18,15 @@ fit_models <- function(modelDir, samples_list, thin_list, nChains) {
       for (model in 1:nm) {
         print(paste0("model = ",modelnames[model]))
         m = models[[model]]
+        # Note re nParallel:  we use one  CPU for each of the nChains.
+          # Setting nParallel > 1 has two consequences: tracing info
+          # vanishes, and random sequences will change from nParallel=1 and
+          # results are no longer reproducible compared to that choice.
         m = sampleMcmc(m, samples = samples, thin=thin,
                        adaptNf=rep(ceiling(0.4*samples*thin),m$nr), 
                        transient = ceiling(0.5*samples*thin),
-                       nChains = nChains) 
+                       nChains = nChains,
+                       nParallel = nChains) 
         models[[model]] = m
       }
       save(models,modelnames,file=filename)
