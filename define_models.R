@@ -16,9 +16,15 @@ define_hurdle_model <- function(S, X, Y, XFormula, ModelDir) {
   xy = data.frame(x=S$Longitude,y=S$Latitude)
   rownames(xy) = studyDesign$cell
   print("Setting a spatial random level")
+  # If we would define an unstructured random effect, we would use the units = ... argument.
+  # Unstructured: with no reference to space or covariates.
+  # As we wish to define a spatial random effect, we use instead the sData argument.
   rL.cell = HmscRandomLevel(sData = xy)
   
   # Presence Absence data
+  # Even if the model definition HMSC accepts logical values (TRUE/FALSE) as the response matrix Y for presence-absence data,
+  # some of the post-processing functions assume that Y has numerical 0/1 values. So it is safer to 
+  # convert Y to numerical either as Y = 1*Y
   Ypa = 1*(Y>0)
   # Presence-absence model
   m1 = Hmsc(Y=Ypa, XData = X,  XFormula = XFormula,

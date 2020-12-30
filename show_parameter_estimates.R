@@ -2,6 +2,8 @@ library(colorspace)
 library(corrplot)
 library(writexl)
 
+# Todo: Add for individual species (measure="Y", index selecting the species) or species richness (measure="S")
+
 show_parameter_estimates <- function(modelDir, samples, thin, nChains, panelsDir) {
   #filenameout = paste("parameterEstimates_thin_", as.character(thin),
   #                    "_samples_", as.character(samples),

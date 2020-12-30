@@ -1,6 +1,7 @@
+# TODO: Implement pseudoR2 for poissonModel = TRUE
+# TODO: print results in consol
+
 show_models_fit <- function(modelDir, samples, thin, nChains, panelsDir, poissonModel = FALSE) {
-  # TODO: Implement pseudoR2 for poissonModel = TRUE
-  
   #filenameout = paste("modelFit_thin_", as.character(thin),
   #                    "_samples_", as.character(samples),
   #                    "_chains_",as.character(nChains),
@@ -19,7 +20,7 @@ show_models_fit <- function(modelDir, samples, thin, nChains, panelsDir, poisson
 
   nm = length(MF)
   
-  pdf(file = filenameout)
+  #pdf(file = filenameout)
   for(j in 1:nm){
     cMF = MF[[j]]
     cMFCV = MFCV[[j]]
