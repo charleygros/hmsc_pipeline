@@ -1,11 +1,11 @@
-fit_models <- function(modelDir, fname_unfitted, samples, thin, nChains) {
+fit_model <- function(modelDir, fname_unfitted, samples, thin, nChains) {
   # load unfitted model
   load(file = fname_unfitted)
   
   print(paste0("thin = ",as.character(thin),"; samples = ",as.character(samples)))
   
   # Output fname
-  prefix = strsplit(fname_unfitted, "models")[[1]][2]
+  prefix = strsplit(fname_unfitted, "_models")[[1]][2]
   if (is.na(prefix)) {
     prefix = ""
   }

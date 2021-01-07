@@ -24,7 +24,7 @@ evaluate_convergence <- function(modelDir, samples_list, thin_list, nChains, pan
     load(filename)
     nm = length(models)
     for(j in 1:nm){
-      print(modelnames[[1]])
+      print(modelnames[[j]])
       # We first extract the posterior distribution from the model object and 
       # convert it into a coda object (needed to examine its convergence).
       mpost = convertToCodaObject(models[[j]], spNamesNumbers = c(T,F), covNamesNumbers = c(T,F))
