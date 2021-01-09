@@ -1,5 +1,16 @@
 make_spatial_predictions <- function(S, X, model_path, fname_out) {
-  # TODO: Adapt to non spatial model
+  #' Make predictions from a spatial grid.
+  #'
+  #' This function load a model and make some predictions given some predictors
+  #' and spatial coordinates. The predictions are then saved under fname_out.
+  #' 
+  #' @param S Study design dataframe containing "Longitude" and "Latitude"
+  #' @param X Predictors dataframe
+  #' @param model_path Path towards the fitted models
+  #' @param fname_out Predictions of each model will be saved under this 
+  #' filename
+  #' 
+  #' @note TODO: Adapt to non spatial model
   
   # Construct the object xy.grid that have the coordinates
   # Get cell IDs
@@ -11,12 +22,7 @@ make_spatial_predictions <- function(S, X, model_path, fname_out) {
   rownames(xy.grid) = studyDesign$cell
   
   # Construct the object XData.grid that have the environmental predictors
-  XData.grid = data.frame(depth=grid$depth,
-                          slope=grid$slope,
-                          npp=grid$npp,
-                          currents=grid$currents,
-                          temp=grid$temp,
-                          stringsAsFactors = TRUE)
+  XData.grid = X
   
   # Load model
   load(model_path)
