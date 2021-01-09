@@ -1,5 +1,5 @@
 # hmsc_pipeline
-R utility functions to define, fit and evaluate HMSC models. These functions build on top of [HMSC framework](https://github.com/hmsc-r/HMSC) to provide a full Species Distribution Modelling pipeline.
+R utility functions to define, fit and evaluate HMSC models. These functions build on top of [HMSC framework](https://github.com/hmsc-r/HMSC) to provide a full Species Distribution Modelling pipeline. See `demo.pdf` for an illustration of these tools.
 
 ## Requirements
 
