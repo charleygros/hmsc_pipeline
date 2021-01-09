@@ -88,7 +88,7 @@ hmsc_CVpred_parallel <- function (hM, partition = NULL,  start = 1, thin = 1,
 }
 
 
-compute_models_fit <- function(modelDir, fname_model) {
+compute_model_fit <- function(modelDir, fname_model) {
   filename_out = paste("MF_", basename(fname_model), sep = "")
   filename_out = file.path(modelDir, filename_out)
   if (file.exists(filename_out)) {
@@ -102,18 +102,23 @@ compute_models_fit <- function(modelDir, fname_model) {
     MFCV = list()
     WAIC = list()
     
-    for(model in 1:nm){
-      print(paste0("model = ",as.character(model)))
-      m = models[[model]]
+    for(i in 1:nm){
+      model_name_cur = modelnames[[i]]
+      print(paste0("model = ",as.character(model_name_cur)))
+      m = models[[i]]
+      
+      # Explanatory power
       preds = computePredictedValues(m)
-      MF[[model]] = evaluateModelFit(hM=m, predY=preds)
-      partition = createPartition(m, nfolds = 2)
-      #preds = computePredictedValues(m,partition=partition)
-      preds = hmsc_CVpred_parallel(m, partition=partition)
-      MFCV[[model]] = evaluateModelFit(hM=m, predY=preds)
-      WAIC[[model]] = computeWAIC(m)
+      MF[[model_name_cur]] = evaluateModelFit(hM=m, predY=preds)
+      
+      # Predictive power
+      partition = createPartition(m, nfolds = 5)
+      preds = computePredictedValues(m,partition=partition)
+      # TODO: CORRECT k variable w Nicole
+      #preds = hmsc_CVpred_parallel(m, partition=partition)
+      MFCV[[model_name_cur]] = evaluateModelFit(hM=m, predY=preds)
+      WAIC[[model_name_cur]] = computeWAIC(m)
     }
-    
-    save(MF,MFCV,WAIC,modelnames,file = filename_out)
+    save(MF, MFCV, WAIC, modelnames, file = filename_out)
   }
 }
