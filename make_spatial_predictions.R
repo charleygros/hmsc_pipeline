@@ -1,3 +1,5 @@
+library(docstring)
+
 make_spatial_predictions <- function(S, X, model_path, fname_out) {
   #' Make predictions from a spatial grid.
   #'
